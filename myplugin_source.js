@@ -8,7 +8,7 @@
                 name: 'MySource',
                 author: 'Evgeniy2074',
                 description: 'Источник через GitHub Pages',
-                type: 'video',
+                type: 'movie', // ← теперь type: movie
                 url: 'https://evgeniy2074.github.io/myplugin_source.js',
                 status: true
             };
@@ -18,7 +18,7 @@
             name: 'MySource',
             version: '1.0',
             author: 'Evgeniy2074',
-            type: 'video',
+            type: 'movie', // ← здесь тоже movie
             active: true,
             proxy: false,
             executable: true,
@@ -48,7 +48,6 @@
         });
     }
 
-    // Ждём полной загрузки Lampa
     function waitForLampa(retries = 20) {
         if (typeof Lampa === 'undefined' || !Lampa.Source || !Lampa.Source.add) {
             if (retries > 0) setTimeout(() => waitForLampa(retries - 1), 500);
