@@ -1,4 +1,3 @@
-
 (function () {
     'use strict';
 
@@ -24,16 +23,26 @@
         executable: true,
         url: 'mysource',
         manifest: manifest,
+
         search: function (query, year, type) {
-            return [
-                {
-                    title: 'Тестовое видео',
-                    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-                    quality: 'HD',
-                    info: 'Big Buck Bunny (тест)',
-                    poster: 'https://via.placeholder.com/300x450?text=Test'
-                }
-            ];
+            return new Promise(function (resolve) {
+                resolve([
+                    {
+                        title: '🎬 Big Buck Bunny (тест)',
+                        url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                        quality: 'HD',
+                        info: 'Тестовый источник',
+                        poster: 'https://via.placeholder.com/300x450?text=Test'
+                    }
+                ]);
+            });
+        },
+
+        resolve: function (url, options = {}, callback) {
+            callback({
+                url: url,
+                method: 'play'
+            });
         }
     });
 })();
