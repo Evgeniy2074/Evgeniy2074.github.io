@@ -1,14 +1,21 @@
 (function () {
     'use strict';
 
-    function addSource() {
+    function startPlugin() {
+        if (typeof Lampa === 'undefined' || !Lampa.Source || !Lampa.Source.add) {
+            setTimeout(startPlugin, 1000);
+            return;
+        }
+
+        console.log('[MySource] плагин инициализируется...');
+
         function manifest() {
             return {
                 version: '1.0',
                 name: 'MySource',
                 author: 'Evgeniy2074',
                 description: 'Источник через GitHub Pages',
-                type: 'movie', // ← теперь type: movie
+                type: 'movie',
                 url: 'https://evgeniy2074.github.io/myplugin_source.js',
                 status: true
             };
@@ -18,7 +25,7 @@
             name: 'MySource',
             version: '1.0',
             author: 'Evgeniy2074',
-            type: 'movie', // ← здесь тоже movie
+            type: 'movie',
             active: true,
             proxy: false,
             executable: true,
@@ -27,6 +34,7 @@
 
             search: function (query, year, type) {
                 return new Promise(function (resolve) {
+                    console.log('[MySource] search:', query, year);
                     resolve([
                         {
                             title: '🎬 Big Buck Bunny (тест)',
@@ -46,16 +54,9 @@
                 });
             }
         });
+
+        console.log('[MySource] зарегистрирован!');
     }
 
-    function waitForLampa(retries = 20) {
-        if (typeof Lampa === 'undefined' || !Lampa.Source || !Lampa.Source.add) {
-            if (retries > 0) setTimeout(() => waitForLampa(retries - 1), 500);
-            return;
-        }
-
-        addSource();
-    }
-
-    waitForLampa();
+    startPlugin();
 })();
